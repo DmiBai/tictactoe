@@ -23,18 +23,17 @@ class Game {
         if ((this.isEmpty(number)) && (this.#state === 0)) {
             this.#cells[number] = symbol;
             this.checkCells();
-            if (this.isFinished()) {
+            if (this.getState()) {
                 this.getWinner();
             }
         }
     }
 
     getCells() {
-        let cells = this.#cells;
-        return cells;
+        return this.#cells;
     }
 
-    isFinished() {
+    getState() {
         return this.#state;
     }
 
@@ -96,13 +95,20 @@ class Game {
             }
         }
         if (this.#state === 2) {
-            this.changeLevel(1);
+            this.increaseLevel();
         } else {
             if (this.#state === 1) {
-                this.changeLevel(0);
+                this.decreaseLevel();
             }
         }
         showResetButton();
+    }
+
+    setLevel(level){
+        if(level >= 1) {
+            this.#level = level;
+        }
+        this.changeLevel();
     }
 
     setCells(matrix) {
@@ -114,17 +120,23 @@ class Game {
             this.#cells[index + 1] = '';
             $('input.cell').eq(index).val('');
             $('input.cell').eq(index).css('background-color', 'blue');
-            this.#state = 0;
-            this.#winner = [0,0,0];
         }
+        this.#state = 0;
+        this.#winner = [0,0,0];
     }
 
-    changeLevel(value) {
-        if(value > 0){
-            this.#level += 1;
-        } else if(this.#level > 1){
-            this.#level -= 1;
-        }
+    increaseLevel(){
+        this.#level++;
+        this.changeLevel();
+    }
+
+    decreaseLevel(){
+        this.#level--;
+        this.changeLevel();
+    }
+
+    changeLevel() {
+        sendLevel(this.#level);
         this.showBotLevel();
         $('#userLevelVal').text(this.#level);
     }
@@ -148,15 +160,46 @@ class Game {
 ///////////////////////////////////////////
 let game = new Game();
 
+function sendLevel(level){
+    $.ajax({
+        url: 'handlers/setLevel.php',
+        type: 'POST',
+        dataType: 'html',
+        data: {value : level },
+        success: function (response) {
+            let result = $.parseJSON(response);
+            game.setLevel(result.level);
+        },
+        error: function (response) {
+        }
+    });
+}
+
+function getLevel(){
+    $.ajax({
+        url: 'handlers/getLevel.php',
+        type: 'POST',
+        dataType: 'html',
+        data: null,
+        success: function (response) {
+            let result = $.parseJSON(response);
+            game.setLevel(result.level);
+        },
+        error: function (response) {
+        }
+    });
+}
+
 $(document).ready(function () {
+    getLevel();
+
     $(document).on('click', 'input.cell', function () {
-        if (($(this).val() === '') && !(game.isFinished())){
+        if (($(this).val() === '') && !(game.getState())){
             let num = Number($(this).attr('name').slice(1));
             game.fillCell(num, 'O');
-            console.log(game.getCells());
             $(this).val('O');
-            if(!game.isFinished()) {
-                ajaxQuery('classes/click.php', game.getCells());
+            if(!game.getState()) {
+                ajaxQuery('handlers/click.php', game.getCells());
             }
         }
     });
@@ -174,17 +217,13 @@ function ajaxQuery(url, sendData) {
         url: url,
         type: 'POST', //метод отправки
         dataType: 'html', //формат данных
-        data: { field: sendData,
-                level: game.getLevel() },
+        data: { field: sendData , level: game.getLevel() },
         success: function (response) {
-
-            console.log(response);
             let result = $.parseJSON(response);
             $('input.cell').eq(result.cellNum - 1).val(result.cellVal);
             game.fillCell(result.cellNum, result.cellVal);
         },
         error: function (response) {
-            console.log(response);
         }
     });
 }

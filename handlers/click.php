@@ -1,13 +1,14 @@
 <?php
-    require_once ('Bot.php');
-    require_once ('BotEasy.php');
-    require_once ('BotHard.php');
-    require_once ('BotMedium.php');
-    require_once ('BotUnfair.php');
-    require_once ('Field.php');
+    require_once('Bot.php');
+    require_once('BotEasy.php');
+    require_once('BotHard.php');
+    require_once('BotMedium.php');
+    require_once('BotUnfair.php');
+    require_once('Field.php');
 
     $field = $_POST['field'];
     $level = $_POST['level'];
+
 
     $matrix = array( 
         array('','',''),
