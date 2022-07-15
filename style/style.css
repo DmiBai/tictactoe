@@ -1,0 +1,50 @@
+p.userLevel{
+    background-color: aqua;
+    text-align: right;
+    float: right;
+}
+h1{
+    margin: auto;
+    text-align: center;
+}
+p.botLevel{
+    background-color: blanchedalmond;
+    text-align: right;
+    float: left;
+}
+
+#botLevel {
+    float: left;
+}
+table{
+    margin:auto;
+}
+td{
+    width: 100px;
+    height: 100px;
+}
+.cell {
+    background-color:blue;
+    color:white;
+    font-size:2cm;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:bold;
+}
+input.cell {
+    width: 100px;
+    height: 100px;
+    border:none;
+    vertical-align:bottom;
+}
+td.cell {
+    border:thick azure outset;
+}
+
+#again_btn_wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#again_btn{
+    display:none;
+}

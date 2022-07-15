@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>TicTacToe</title>
+    <link href="style/style.css" type="text/css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="scripts/cells.js"></script>
+    <script src="scripts/game.js" type="module"></script>
+</head>
+
+<body>
+    <h1>TIC-TAC-TOE</h1>
+    <br>
+    <p class="botLevel">
+        <b class="botLevel" id="botLevelText">Bot level: </b>
+        <b class="botLevel" id="botLevelVal">Easy</b>
+    </p>
+
+    <p class="userLevel">
+        <b class="userLevel" id="userLevelText">Your level: </b>
+        <b class="userLevel" id="userLevelVal">1</b>
+    </p>
+
+        <div>
+            <table id="game">
+                <tr>
+                    <td class="cell"><input class=cell name=c1 type=button accesskey=1></td>
+                    <td class="cell"><input class=cell name=c2 type=button accesskey=2></td>
+                    <td class="cell"><input class=cell name=c3 type=button accesskey=3></td>
+                </tr>
+                <tr>
+                    <td class="cell"><input class=cell name=c4 type=button accesskey=4></td>
+                    <td class="cell"><input class=cell name=c5 type=button accesskey=5></td>
+                    <td class="cell"><input class=cell name=c6 type=button accesskey=6></td>
+                </tr>
+                <tr>
+                    <td class="cell"><input class=cell name=c7 type=button accesskey=7></td>
+                    <td class="cell"><input class=cell name=c8 type=button accesskey=8></td>
+                    <td class="cell"><input class=cell name=c9 type=button accesskey=9></td>
+                </tr>
+            </table>
+        </div>
+
+        <br>
+        <div id="again_btn_wrapper"><button id="again_btn">AGAIN</button></div>
+        
+</body>
+
+</html>
