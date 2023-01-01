@@ -182,6 +182,7 @@ function getLevel(){
         dataType: 'html',
         data: null,
         success: function (response) {
+            console.log(response);
             let result = $.parseJSON(response);
             game.setLevel(result.level);
         },
@@ -219,6 +220,7 @@ function ajaxQuery(url, sendData) {
         dataType: 'html', //формат данных
         data: { field: sendData , level: game.getLevel() },
         success: function (response) {
+            console.log(response);
             let result = $.parseJSON(response);
             $('input.cell').eq(result.cellNum - 1).val(result.cellVal);
             game.fillCell(result.cellNum, result.cellVal);

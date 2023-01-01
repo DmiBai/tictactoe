@@ -1,6 +1,6 @@
 <?php
 
-    $db = new PDO('mysql:dbname=tictactoe;host=localhost','root','');
+    $db = new PDO('mysql:dbname=tictactoe;host=localhost','root','root');
     $playerId = '';
     $level = 1;
     if (!(isset($_COOKIE['playerid']))){
